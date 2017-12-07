@@ -24,6 +24,11 @@ $(call inherit-product, vendor/xiaomi/davinci/davinci-vendor.mk)
 TARGET_SCREEN_HEIGHT := 2340
 TARGET_SCREEN_WIDTH := 1080
 
+# HIDL
+PRODUCT_PACKAGES += \
+    android.hidl.base@1.0 \
+    android.hidl.manager@1.0
+
 # NFC
 PRODUCT_PACKAGES += \
     com.android.nfc_extras \
