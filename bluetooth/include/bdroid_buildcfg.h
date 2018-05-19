@@ -5,6 +5,7 @@
  *  for attribution purposes only.
  *
  * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2020 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,45 @@
 
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
-#define BTM_DEF_LOCAL_NAME   "Xiaomi Mi 9T"
+
+#pragma push_macro("PROPERTY_VALUE_MAX")
+
+#include <cutils/properties.h>
+#include <string.h>
+
+#include "osi/include/osi.h"
+
+typedef struct {
+    const char *product_region;
+    const char *product_model;
+} device_t;
+
+static const device_t devices[] = {
+    {"GLOBAL", "Xiaomi Mi 9T"},
+    {"CN", "Redmi K20"},
+    {"INDIA", "Redmi K20"},
+};
+
+static inline const char *BtmGetDefaultName()
+{
+    char product_region[PROPERTY_VALUE_MAX];
+    property_get("ro.boot.hwc", product_region, "");
+
+    for (unsigned int i = 0; i < ARRAY_SIZE(devices); i++) {
+        device_t device = devices[i];
+
+        if (strcmp(device.product_region, product_region) == 0 ||
+            strcmp(device.product_region, "ALL") == 0) {
+            return device.product_model;
+        }
+    }
+
+    // Fallback to ro.product.model
+    return "";
+}
+
+#define BTM_DEF_LOCAL_NAME BtmGetDefaultName()
+
 // Disables read remote device feature
 #define MAX_ACL_CONNECTIONS   16
 #define MAX_L2CAP_CHANNELS    16
@@ -31,4 +70,7 @@
 
 /* Increasing SEPs to 12 from 6 to support SHO/MCast i.e. two streams per codec */
 #define AVDT_NUM_SEPS 12
+
+#pragma pop_macro("PROPERTY_VALUE_MAX")
+
 #endif
