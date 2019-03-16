@@ -101,6 +101,7 @@ persist.vendor.data.mode=concurrent
 ro.telephony.iwlan_operation_mode=legacy
 
 # Display
+debug.cpurend.vsync=false
 debug.egl.hw=0
 debug.mdpcomp.logs=0
 debug.sf.disable_backpressure=1
