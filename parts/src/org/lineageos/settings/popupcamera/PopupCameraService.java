@@ -25,9 +25,11 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import org.lineageos.internal.util.FileUtils;
 import vendor.xiaomi.hardware.motor.V1_0.IMotor;
 
 public class PopupCameraService extends Service {
@@ -37,7 +39,10 @@ public class PopupCameraService extends Service {
     private static final String closeCameraState = "0";
     private static final String openCameraState = "1";
     private static final int FREE_FALL_SENSOR_ID = 33171042;
+    private static final String GREEN_LED_PATH = "/sys/class/leds/green/brightness";
+    private static final String BLUE_LED_PATH = "/sys/class/leds/blue/brightness";
     private static String mCameraState = "-1";
+    private static Handler mHandler = new Handler();
     private IMotor mMotor = null;
     private SensorManager mSensorManager;
     private Sensor mFreeFallSensor;
@@ -95,6 +100,19 @@ public class PopupCameraService extends Service {
         return null;
     }
 
+    private void lightUp() {
+        FileUtils.writeLine(GREEN_LED_PATH, "255");
+        FileUtils.writeLine(BLUE_LED_PATH, "255");
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                FileUtils.writeLine(GREEN_LED_PATH, "0");
+                FileUtils.writeLine(BLUE_LED_PATH, "0");
+            }
+        }, 1200);
+    }
+
     private void registerReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
@@ -106,9 +124,11 @@ public class PopupCameraService extends Service {
         if (mMotor == null) return;
         try {
             if (cameraState.equals(openCameraState) && mMotor.getMotorStatus() == 13) {
+                lightUp();
                 mMotor.popupMotor(1);
                 mSensorManager.registerListener(mFreeFallListener, mFreeFallSensor, SensorManager.SENSOR_DELAY_NORMAL);
             } else if (cameraState.equals(closeCameraState) && mMotor.getMotorStatus() == 11) {
+                lightUp();
                 mMotor.takebackMotor(1);
                 mSensorManager.unregisterListener(mFreeFallListener, mFreeFallSensor);
             }
