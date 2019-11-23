@@ -329,21 +329,6 @@ service thermal-engine /system/vendor/bin/thermal-engine
 #
 #
 #
-## imsqmidaemon starts with root and UID will be downgraded to RADIO.
-service vendor.imsqmidaemon /system/vendor/bin/imsqmidaemon
-    class main
-    user radio
-    socket ims_qmid stream 0660 system radio
-    group radio log diag
-
-# imsdatadaemon starts with root and UID will be downgraded to RADIO.
-service vendor.imsdatadaemon /system/vendor/bin/imsdatadaemon
-    class main
-    user radio
-    socket ims_datad stream 0660 system radio
-    group radio wifi inet log diag
-    disabled
-
 #service mdm_helper /system/bin/mdm_helper
 #    class core
 #    onrestart setprop ro.service.mdm_helper_restarted "true"
@@ -397,14 +382,6 @@ service vendor.imsdatadaemon /system/vendor/bin/imsdatadaemon
 #   group gps system qcom_diag diag log inet net_raw
 #   disabled
 
-service vendor.imsrcsservice /system/vendor/bin/imsrcsd
-    class main
-    user radio
-    group radio diag inet log
-
-on property:vendor.ims.QMI_DAEMON_STATUS=1
-    start vendor.imsdatadaemon
-
 on property:vold.decrypt=trigger_restart_framework
    start vendor.cnss_diag
 
@@ -414,18 +391,10 @@ service vendor.cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM
    group system wifi inet sdcard_rw media_rw diag
    oneshot
 
-service vendor.ims_rtp_daemon /system/vendor/bin/ims_rtp_daemon
-   class main
-   user radio
-   group radio vendor_qti_diag inet log
-
 service leds-sh /system/vendor/bin/sh /vendor/etc/init.leds.sh
    class core
    user root
    oneshot
-
-on property:vendor.ims.DATA_DAEMON_STATUS=1
-    restart vendor.ims_rtp_daemon
 
 service ppd /vendor/bin/mm-pp-dpps
     class late_start
