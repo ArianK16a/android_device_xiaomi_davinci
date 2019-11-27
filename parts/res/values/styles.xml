@@ -72,4 +72,6 @@
     </style>
 
     <style name="TextAppearance.Medium" parent="@android:style/TextAppearance.Material.Medium" />
+
+    <style name="SystemAlertDialogTheme" parent="@*android:style/Theme.DeviceDefault.Dialog.Alert.DayNight" />
 </resources>
