@@ -16,9 +16,12 @@
 
 package org.lineageos.settings.popupcamera;
 
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.Sensor;
@@ -31,9 +34,13 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.UserHandle;
 import android.util.Log;
+import android.view.WindowManager;
 
+import org.lineageos.settings.R;
 import org.lineageos.internal.util.FileUtils;
 import vendor.xiaomi.hardware.motor.V1_0.IMotor;
+import vendor.xiaomi.hardware.motor.V1_0.IMotorCallback;
+import vendor.xiaomi.hardware.motor.V1_0.MotorEvent;
 
 public class PopupCameraService extends Service {
 
@@ -47,7 +54,10 @@ public class PopupCameraService extends Service {
     private static String mCameraState = "-1";
     private static Handler mHandler = new Handler();
     private IMotor mMotor = null;
+    private IMotorCallback mMotorStatusCallback;
+    private final Object mLock = new Object();
     private boolean mMotorBusy = false;
+    private boolean mMotorCalibrating = false;
     private SensorManager mSensorManager;
     private Sensor mFreeFallSensor;
     private PopupCameraPreferences mPopupCameraPreferences;
@@ -58,7 +68,7 @@ public class PopupCameraService extends Service {
         @Override
         public void onSensorChanged(SensorEvent event) {
             if (event.sensor.getType() == FREE_FALL_SENSOR_ID && event.values[0] == 2.0f) {
-                updateMotor(closeCameraState);
+                forceTakeback();
                 goBackHome();
             }
         }
@@ -73,10 +83,31 @@ public class PopupCameraService extends Service {
             final String action = intent.getAction();
             if (lineageos.content.Intent.ACTION_CAMERA_STATUS_CHANGED.equals(action)) {
                 mCameraState = intent.getExtras().getString(lineageos.content.Intent.EXTRA_CAMERA_STATE);
-                updateMotor(mCameraState);
+                updateMotor();
+            } else if ("android.intent.action.SCREEN_OFF".equals(action)) {
+                if (mCameraState.equals(openCameraState)){
+                    forceTakeback();
+                }
             }
         }
     };
+
+    // Motor status
+    private static final int MOTOR_STATUS_POPUP_OK = 11;
+    private static final int MOTOR_STATUS_POPUP_JAMMED = 12;
+    private static final int MOTOR_STATUS_TAKEBACK_OK = 13;
+    private static final int MOTOR_STATUS_TAKEBACK_JAMMED = 14;
+    private static final int MOTOR_STATUS_PRESSED = 15;
+    private static final int MOTOR_STATUS_CALIB_OK = 17;
+    private static final int MOTOR_STATUS_CALIB_ERROR = 18;
+    private static final int MOTOR_STATUS_REQUEST_CALIB = 19;
+
+    // Error dialog
+    private boolean mErrorDialogShowing;
+    private int mPopupFailedRecord = 0;
+    private int mTakebackFailedRecord = 0;
+    private static final int POPUP_FAILED_MAX_TRIES = 3;
+    private static final int TAKEBACK_FAILED_MAX_TRIES = 3;
 
     @Override
     public void onCreate() {
@@ -98,6 +129,8 @@ public class PopupCameraService extends Service {
 
         try {
             mMotor = IMotor.getService();
+            mMotorStatusCallback = new MotorStatusCallback();
+            mMotor.setMotorCallback(mMotorStatusCallback);
         } catch (Exception e) {
             // Do nothing
         }
@@ -119,6 +152,105 @@ public class PopupCameraService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    private final class MotorStatusCallback extends IMotorCallback.Stub {
+        public MotorStatusCallback() {
+        }
+
+        @Override
+        public void onNotify(MotorEvent event) {
+            int status = event.vaalue;
+            int cookie = event.cookie;
+            if (DEBUG) Log.d(TAG, "onNotify: cookie=" + cookie + ",status=" + status);
+            synchronized (mLock) {
+                if (status == MOTOR_STATUS_CALIB_OK || status == MOTOR_STATUS_CALIB_ERROR) {
+                    mMotorCalibrating = false;
+                    showCalibrationResult(status);
+                } else if (status == MOTOR_STATUS_PRESSED) {
+                    forceTakeback();
+                    goBackHome();
+                } else if (status == MOTOR_STATUS_POPUP_JAMMED || status == MOTOR_STATUS_TAKEBACK_JAMMED) {
+                    handleError(status);
+                }
+            }
+        }
+    }
+
+    private void calibrateMotor() {
+        synchronized (mLock) {
+            if (mMotorCalibrating || mMotor == null) return;
+            try {
+                mMotorCalibrating = true;
+                mMotor.calibration();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private void forceTakeback(){
+        mCameraState = closeCameraState;
+        updateMotor();
+    }
+
+    private void handleError(int status){
+        if (mErrorDialogShowing){
+            return;
+        }
+        mErrorDialogShowing = true;
+        goBackHome();
+        mHandler.post(() -> {
+            boolean needsCalib = false;
+            if (status == MOTOR_STATUS_REQUEST_CALIB || status == MOTOR_STATUS_CALIB_ERROR){
+                needsCalib = true;
+            } else if (status == MOTOR_STATUS_POPUP_JAMMED){
+                if (mPopupFailedRecord >= POPUP_FAILED_MAX_TRIES){
+                    needsCalib = true;
+                } else {
+                    mPopupFailedRecord++;
+                }
+            } else if (status == MOTOR_STATUS_TAKEBACK_JAMMED){
+                if (mTakebackFailedRecord >= TAKEBACK_FAILED_MAX_TRIES){
+                    needsCalib = true;
+                } else {
+                    mTakebackFailedRecord++;
+                    try {
+                        mMotor.takebackMotor(1);
+                    } catch(Exception e) {
+                    }
+                }
+            }
+            Resources res = getResources();
+            int dialogMessageResId = needsCalib ? (mCameraState.equals(closeCameraState) ?
+                R.string.popup_camera_takeback_falied_times_calibrate :
+                R.string.popup_camera_popup_falied_times_calibrate) :
+                    (mCameraState.equals(closeCameraState) ?
+                        R.string.takeback_camera_front_failed :
+                        R.string.popup_camera_front_failed);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.SystemAlertDialogTheme)
+                    .setTitle(res.getString(R.string.popup_camera_tip));
+            alertDialogBuilder.setMessage(res.getString(dialogMessageResId));
+            if (needsCalib){
+                alertDialogBuilder.setPositiveButton(res.getString(R.string.popup_camera_calibrate_now),
+                        (dialog, which) -> {
+                        calibrateMotor();
+                });
+                alertDialogBuilder.setNegativeButton(res.getString(android.R.string.cancel), null);
+            } else {
+                alertDialogBuilder.setPositiveButton(android.R.string.ok, null);
+            }
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+            alertDialog.setCancelable(false);
+            alertDialog.setCanceledOnTouchOutside(false);
+            alertDialog.show();
+            alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    mErrorDialogShowing = false;
+                }
+            });
+        });
     }
 
     private void lightUp() {
@@ -153,31 +285,71 @@ public class PopupCameraService extends Service {
         registerReceiver(mIntentReceiver, filter);
     }
 
-    private void updateMotor(String cameraState) {
+    private void showCalibrationResult(int status){
+        if (mDialogShowing){
+            return;
+        }
+        mDialogShowing = true;
+        mHandler.post(() -> {
+            Resources res = getResources();
+            int dialogMessageResId = mMotorCalibrating ? R.string.popup_camera_calibrate_running : (status == MOTOR_STATUS_CALIB_OK ?
+                    R.string.popup_camera_calibrate_success :
+                    R.string.popup_camera_calibrate_failed);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.SystemAlertDialogTheme);
+            alertDialogBuilder.setMessage(res.getString(dialogMessageResId));
+            alertDialogBuilder.setPositiveButton(android.R.string.ok, null);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+            alertDialog.setCancelable(false);
+            alertDialog.setCanceledOnTouchOutside(false);
+            alertDialog.show();
+            alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    mDialogShowing = false;
+                }
+            });
+        });
+    }
+
+
+    private void updateMotor() {
         final Runnable r = new Runnable() {
             @Override
             public void run() {
-                mMotorBusy = true;
-                mHandler.postDelayed(() -> {
-                    mMotorBusy = false;
-                }, 1200);
                 if (mMotor == null) return;
+                mMotorBusy = true;
                 try {
-                    if (cameraState.equals(openCameraState) && mMotor.getMotorStatus() == 13) {
+                    int status = mMotor.getMotorStatus();
+                    if (DEBUG) Log.d(TAG, "updateMotor: status=" + status);
+                    if (mMotorCalibrating){
+                        mMotorBusy = false;
+                        goBackHome();
+                        showCalibrationResult(-1);
+                        return;
+                    } else if (mCameraState.equals(openCameraState) && (status == MOTOR_STATUS_TAKEBACK_OK || status == MOTOR_STATUS_CALIB_OK)) {
+                        mTakebackFailedRecord = 0;
                         lightUp();
                         playSoundEffect(openCameraState);
                         mMotor.popupMotor(1);
-                        mSensorManager.registerListener(mFreeFallListener, mFreeFallSensor,
-                                SensorManager.SENSOR_DELAY_NORMAL);
-                    } else if (cameraState.equals(closeCameraState) && mMotor.getMotorStatus() == 11) {
+                        mSensorManager.registerListener(mFreeFallListener, mFreeFallSensor, SensorManager.SENSOR_DELAY_NORMAL);
+                    } else if (mCameraState.equals(closeCameraState) && (status == MOTOR_STATUS_POPUP_OK || status == MOTOR_STATUS_CALIB_OK)) {
+                        mPopupFailedRecord = 0;
                         lightUp();
                         playSoundEffect(closeCameraState);
                         mMotor.takebackMotor(1);
                         mSensorManager.unregisterListener(mFreeFallListener, mFreeFallSensor);
+                    } else {
+                        mMotorBusy = false;
+                        if (status == MOTOR_STATUS_REQUEST_CALIB || status == MOTOR_STATUS_POPUP_JAMMED || status == MOTOR_STATUS_TAKEBACK_JAMMED || status == MOTOR_STATUS_CALIB_ERROR){
+                            handleError(status);
+                        }
+                        return;
                     }
                 } catch (Exception e) {
                     // Do nothing
                 }
+                mHandler.postDelayed(() -> { mMotorBusy = false; }, 1200);
             }
         };
         if (mMotorBusy) {
