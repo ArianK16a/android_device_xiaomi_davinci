@@ -23,6 +23,9 @@ cc_binary {
         "service.cpp",
     ],
     vendor: true,
+    header_libs: [
+        "generated_kernel_headers",
+    ],
     shared_libs: [
         "liblog",
         "libhidlbase",
