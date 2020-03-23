@@ -53,6 +53,8 @@ BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=1
 BOARD_KERNEL_CMDLINE += androidboot.usbcontroller=a600000.dwc3 earlycon=msm_geni_serial,0xa88000
 BOARD_KERNEL_CMDLINE += loop.max_part=7 cgroup.memory=nokmem,nosocket
 
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 134217728
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
