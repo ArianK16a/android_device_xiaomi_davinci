@@ -29,6 +29,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -311,6 +312,10 @@ public class PopupCameraService extends Service {
     }
 
     private void playSoundEffect(String state) {
+        AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        if (audioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
+            return;
+        }
         int soundEffect = Integer.parseInt(mPopupCameraPreferences.getSoundEffect());
         if (soundEffect != -1) {
             if (state.equals(closeCameraState)) {
