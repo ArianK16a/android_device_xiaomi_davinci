@@ -13,3 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+# Inherit from proprietary files
+include vendor/xiaomi/davinci/BoardConfigVendor.mk
