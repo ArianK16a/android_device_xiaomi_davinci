@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+# We use prebuilt vendor for now
+ALLOW_MISSING_DEPENDENCIES := true
+
 BOARD_VENDOR := xiaomi
 
 DEVICE_PATH := device/xiaomi/davinci
