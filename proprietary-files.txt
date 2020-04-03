@@ -1,3 +1,7 @@
+# Audio - from OnePlus 7 Pro QKQ1.190716.003 2003130756
+vendor/lib/soundfx/libvolumelistener.so:product/vendor_overlay/29/lib/soundfx/libvolumelistener.so|07ef90412e55e934474df9350a5cd48b2a354a1c
+vendor/lib64/soundfx/libvolumelistener.so:product/vendor_overlay/29/lib64/soundfx/libvolumelistener.so|1d3d19d2582f1c345c57ac75d617bdece88394f9
+
 # Popup camera sound effects
 media/audio/ui/popup_cangmen_down.ogg
 media/audio/ui/popup_cangmen_up.ogg
