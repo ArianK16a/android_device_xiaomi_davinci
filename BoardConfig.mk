@@ -17,6 +17,9 @@
 # We use prebuilt vendor for now
 ALLOW_MISSING_DEPENDENCIES := true
 
+# HACKS
+BUILD_BROKEN_DUP_RULES := true
+
 BOARD_VENDOR := xiaomi
 
 DEVICE_PATH := device/xiaomi/davinci
@@ -43,6 +46,10 @@ USE_XML_AUDIO_POLICY_CONF := 1
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sm6150
 TARGET_NO_BOOTLOADER := true
+
+# FM
+BOARD_HAS_QCA_FM_SOC := "cherokee"
+BOARD_HAVE_QCOM_FM := true
 
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
