@@ -7,8 +7,8 @@ lib/fm_helium.so
 lib/libfm-hci.so
 lib64/fm_helium.so
 lib64/libfm-hci.so
-product/lib/vendor.qti.hardware.fm@1.0.so
-product/lib64/vendor.qti.hardware.fm@1.0.so
+-product/lib/vendor.qti.hardware.fm@1.0.so
+-product/lib64/vendor.qti.hardware.fm@1.0.so
 
 # Popup camera sound effects
 media/audio/ui/popup_cangmen_down.ogg
