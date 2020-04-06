@@ -752,9 +752,7 @@ vendor/etc/init/exfat.rc
 vendor/etc/init/hostapd.android.rc
 vendor/etc/init/hw/init.msm.usb.configfs.rc
 vendor/etc/init/hw/init.qcom.factory.rc
-vendor/etc/init/hw/init.qcom.rc
 vendor/etc/init/hw/init.qcom.usb.rc
-vendor/etc/init/hw/init.target.rc
 vendor/etc/init/imsdatadaemon.rc
 vendor/etc/init/imsqmidaemon.rc
 vendor/etc/init/imsrcsd.rc
