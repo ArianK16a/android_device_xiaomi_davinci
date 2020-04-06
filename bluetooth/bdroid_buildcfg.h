@@ -50,7 +50,7 @@ static inline const char *BtmGetDefaultName()
         device_t device = devices[i];
 
         if (strcmp(device.product_region, product_region) == 0 ||
-            strcmp(device.product_region, "ALL") == 0)) {
+            strcmp(device.product_region, "ALL") == 0) {
             return device.product_model;
         }
     }
