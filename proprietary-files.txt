@@ -867,8 +867,6 @@ vendor/etc/mixer_paths_wcd9375.xml
 vendor/etc/mkshrc
 vendor/etc/mono.cnt
 vendor/etc/msm_irqbalance.conf
-vendor/etc/NOTICE_GPL.html.gz
-vendor/etc/NOTICE.xml.gz
 vendor/etc/passwd
 vendor/etc/perf/commonresourceconfigs.xml
 vendor/etc/perf/perfboostsconfig.xml
