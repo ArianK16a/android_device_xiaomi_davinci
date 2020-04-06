@@ -201,8 +201,6 @@ product/lib64/vendor.qti.hardware.wifidisplaysession@1.0.so
 -vendor/app/com.qualcomm.qti.improvetouch.service/com.qualcomm.qti.improvetouch.service.apk
 -vendor/app/ConnectionSecurityService/ConnectionSecurityService.apk
 -vendor/app/IWlanService/IWlanService.apk
--vendor/app/QDMA/lib/arm64/libvndfwk_detect_jni.qti.so
--vendor/app/QDMA-UI/lib/arm64/libvndfwk_detect_jni.qti.so
 -vendor/app/SoterService/SoterService.apk
 -vendor/app/SSGTelemetryService/SSGTelemetryService.apk
 -vendor/app/TimeService/TimeService.apk
