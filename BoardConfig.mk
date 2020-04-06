@@ -14,8 +14,9 @@
 # limitations under the License.
 #
 
-# We use prebuilt vendor for now
+# Vendor hax
 ALLOW_MISSING_DEPENDENCIES := true
+BUILD_BROKEN_DUP_RULES := true
 
 BOARD_VENDOR := xiaomi
 
