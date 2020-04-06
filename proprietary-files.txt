@@ -1,6 +1,6 @@
 # Audio - from OnePlus 7 Pro QKQ1.190716.003 2003130756
-vendor/lib/soundfx/libvolumelistener.so:product/vendor_overlay/29/lib/soundfx/libvolumelistener.so|07ef90412e55e934474df9350a5cd48b2a354a1c
-vendor/lib64/soundfx/libvolumelistener.so:product/vendor_overlay/29/lib64/soundfx/libvolumelistener.so|1d3d19d2582f1c345c57ac75d617bdece88394f9
+vendor/lib/soundfx/libvolumelistener.so07ef90412e55e934474df9350a5cd48b2a354a1c
+vendor/lib64/soundfx/libvolumelistener.so1d3d19d2582f1c345c57ac75d617bdece88394f9
 
 # CNE
 product/framework/com.quicinc.cne.api-V1.1-java.jar
@@ -1754,7 +1754,6 @@ vendor/lib64/soundfx/libqcreverb.so
 vendor/lib64/soundfx/libqcvirt.so
 vendor/lib64/soundfx/libreverbwrapper.so
 vendor/lib64/soundfx/libvisualizer.so
-vendor/lib64/soundfx/libvolumelistener.so
 vendor/lib64/unnhal-acc-adreno.so
 vendor/lib64/unnhal-acc-common.so
 vendor/lib64/unnhal-acc-hta.so
@@ -2594,7 +2593,6 @@ vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
 vendor/lib/soundfx/libreverbwrapper.so
 vendor/lib/soundfx/libvisualizer.so
-vendor/lib/soundfx/libvolumelistener.so
 vendor/lib/unnhal-acc-hta.so
 vendor/lib/vendor.display.color@1.0.so
 vendor/lib/vendor.display.color@1.1.so
