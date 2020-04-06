@@ -602,14 +602,6 @@ vendor/camera/fonts/MI+LanTing_GB+Outside+YS_V2.3_20160322.ttf
 vendor/camera/fonts/MIUI_Time.ttf
 vendor/camera/mimoji/data.zip
 vendor/camera/mimoji/model.zip
-vendor/data-app/Drive/Drive.apk
-vendor/data-app/Duo/Duo.apk
-vendor/data-app/Miui_Fashiongallery_global_new/Miui_Fashiongallery_global_new.apk
-vendor/data-app/Music2/Music2.apk
-vendor/data-app/Photos/Photos.apk
-vendor/data-app/Videos/Videos.apk
-vendor/data-app/wps_lite/wps_lite.apk
-vendor/default.prop
 vendor/etc/a2dp_audio_policy_configuration.xml
 vendor/etc/acdbdata/adsp_avs_config.acdb
 vendor/etc/acdbdata/Forte/Forte_Bluetooth_cal.acdb
