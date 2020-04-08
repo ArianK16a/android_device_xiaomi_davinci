@@ -118,47 +118,6 @@ product/lib/vendor.qti.ims.rcsconfig@1.0.so
 product/lib/vendor.qti.imsrtpservice@2.0.so
 -product/priv-app/ims/ims.apk
 
-# Kernel modules
-vendor/lib/modules/audio_adsp_loader.ko
-vendor/lib/modules/audio_apr.ko
-vendor/lib/modules/audio_bolero_cdc.ko
-vendor/lib/modules/audio_hdmi.ko
-vendor/lib/modules/audio_machine_talos.ko
-vendor/lib/modules/audio_mbhc.ko
-vendor/lib/modules/audio_native.ko
-vendor/lib/modules/audio_pinctrl_lpi.ko
-vendor/lib/modules/audio_pinctrl_wcd.ko
-vendor/lib/modules/audio_platform.ko
-vendor/lib/modules/audio_q6.ko
-vendor/lib/modules/audio_q6_notifier.ko
-vendor/lib/modules/audio_q6_pdr.ko
-vendor/lib/modules/audio_rx_macro.ko
-vendor/lib/modules/audio_snd_event.ko
-vendor/lib/modules/audio_stub.ko
-vendor/lib/modules/audio_swr_ctrl.ko
-vendor/lib/modules/audio_swr.ko
-vendor/lib/modules/audio_tfa98xx.ko
-vendor/lib/modules/audio_tx_macro.ko
-vendor/lib/modules/audio_usf.ko
-vendor/lib/modules/audio_va_macro.ko
-vendor/lib/modules/audio_wcd934x.ko
-vendor/lib/modules/audio_wcd937x.ko
-vendor/lib/modules/audio_wcd937x_slave.ko
-vendor/lib/modules/audio_wcd9xxx.ko
-vendor/lib/modules/audio_wcd_core.ko
-vendor/lib/modules/audio_wcd_spi.ko
-vendor/lib/modules/audio_wglink.ko
-vendor/lib/modules/audio_wsa881x.ko
-vendor/lib/modules/audio_wsa_macro.ko
-vendor/lib/modules/exfat.ko
-vendor/lib/modules/modules.alias
-vendor/lib/modules/modules.dep
-vendor/lib/modules/mpq-adapter.ko
-vendor/lib/modules/mpq-dmx-hw-plugin.ko
-vendor/lib/modules/msm_11ad_proxy.ko
-vendor/lib/modules/qca_cld3_wlan.ko
-vendor/lib/modules/wil6210.ko
-
 # Popup camera sound effects
 media/audio/ui/popup_cangmen_down.ogg
 media/audio/ui/popup_cangmen_up.ogg
