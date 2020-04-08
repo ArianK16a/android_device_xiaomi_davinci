@@ -108,6 +108,10 @@ TARGET_COPY_OUT_VENDOR := vendor
 # Platform
 TARGET_BOARD_PLATFORM := sm6150
 
+# Power
+TARGET_TAP_TO_WAKE_EVENT_NODE := "/dev/input/event2"
+TARGET_USES_INTERACTION_BOOST := true
+
 # Properties
 TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop

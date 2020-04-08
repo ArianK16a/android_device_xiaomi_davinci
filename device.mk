@@ -128,6 +128,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/product_privapp-permissions-qti.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-qti.xml \
     $(LOCAL_PATH)/configs/permissions/system_privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml
 
+# Power
+PRODUCT_PACKAGES += \
+    android.hardware.power@1.2-service-qti
+
 # RCS
 PRODUCT_PACKAGES += \
     rcs_service_aidl \

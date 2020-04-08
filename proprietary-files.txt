@@ -325,7 +325,6 @@ vendor/bin/hw/android.hardware.light@2.0-service
 vendor/bin/hw/android.hardware.media.omx@1.0-service
 vendor/bin/hw/android.hardware.memtrack@1.0-service
 vendor/bin/hw/android.hardware.neuralnetworks@1.2-service-qti
-vendor/bin/hw/android.hardware.power@1.2-service
 vendor/bin/hw/android.hardware.sensors@1.0-service
 vendor/bin/hw/android.hardware.thermal@1.0-service
 vendor/bin/hw/android.hardware.usb@1.0-service
@@ -737,7 +736,6 @@ vendor/etc/init/android.hardware.light@2.0-service.rc
 vendor/etc/init/android.hardware.media.omx@1.0-service.rc
 vendor/etc/init/android.hardware.memtrack@1.0-service.rc
 vendor/etc/init/android.hardware.neuralnetworks@1.2-service-qti.rc
-vendor/etc/init/android.hardware.power@1.2-service.rc
 vendor/etc/init/android.hardware.sensors@1.0-service.rc
 vendor/etc/init/android.hardware.thermal@1.0-service.rc
 vendor/etc/init/android.hardware.usb@1.0-service.rc
@@ -1232,7 +1230,6 @@ vendor/lib64/hw/hwcomposer.sm6150.so
 vendor/lib64/hw/lights.sm6150.so
 vendor/lib64/hw/local_time.default.so
 vendor/lib64/hw/memtrack.sm6150.so
-vendor/lib64/hw/power.default.so
 vendor/lib64/hw/sound_trigger.primary.sm6150.so
 vendor/lib64/hw/thermal.sm6150.so
 vendor/lib64/hw/vendor.qti.esepowermanager@1.0-impl.so
@@ -1991,7 +1988,6 @@ vendor/lib/hw/hwcomposer.sm6150.so
 vendor/lib/hw/lights.sm6150.so
 vendor/lib/hw/local_time.default.so
 vendor/lib/hw/memtrack.sm6150.so
-vendor/lib/hw/power.default.so
 vendor/lib/hw/sound_trigger.primary.sm6150.so
 vendor/lib/hw/thermal.sm6150.so
 vendor/lib/hw/vendor.qti.esepowermanager@1.0-impl.so
