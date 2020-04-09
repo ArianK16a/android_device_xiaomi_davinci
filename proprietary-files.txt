@@ -372,7 +372,6 @@ vendor/bin/imsdatadaemon
 vendor/bin/imsqmidaemon
 vendor/bin/imsrcsd
 vendor/bin/ims_rtp_daemon
-vendor/bin/init.class_main.sh
 vendor/bin/init.crda.sh
 vendor/bin/init.mdm.sh
 vendor/bin/init.mi.usb.sh

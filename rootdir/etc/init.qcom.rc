@@ -348,6 +348,9 @@ on post-fs-data
     # Create /data/time folder for time-services
     mkdir /data/vendor/time/ 0700 system system
 
+    start vendor.qcrild
+    start vendor.qcrild2
+
     setprop vold.post_fs_data_done 1
 
     #Create a folder for SRS to be able to create a usercfg file
@@ -559,13 +562,7 @@ service qcom-c_core-sh  /vendor/bin/init.qcom.class_core.sh
     user root
     oneshot
 
-service qcom-c_main-sh /vendor/bin/init.class_main.sh
-    class main
-    user root
-    oneshot
-
 on property:vold.decrypt=trigger_restart_framework
-    start qcom-c_main-sh
     start wcnss-service
 
 on property:persist.env.fastdorm.enabled=true
