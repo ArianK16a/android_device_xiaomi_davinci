@@ -23,7 +23,7 @@
 #include <fstream>
 
 #define LCD_LED         "/sys/class/backlight/panel0-backlight/"
-#define WHITE_LED       "/sys/class/leds/white/"
+#define RED_LED       "/sys/class/leds/green/"
 
 #define BREATH          "breath"
 #define BRIGHTNESS      "brightness"
@@ -106,11 +106,11 @@ static void handleBacklight(const LightState& state) {
 }
 
 static void handleNotification(const LightState& state) {
-    uint32_t whiteBrightness = getScaledBrightness(state, getMaxBrightness(WHITE_LED MAX_BRIGHTNESS));
+    uint32_t whiteBrightness = getScaledBrightness(state, getMaxBrightness(RED_LED MAX_BRIGHTNESS));
 
     /* Disable breathing or blinking */
-    set(WHITE_LED BREATH, 0);
-    set(WHITE_LED BRIGHTNESS, 0);
+    set(RED_LED BREATH, 0);
+    set(RED_LED BRIGHTNESS, 0);
 
     if (!whiteBrightness) {
         return;
@@ -120,11 +120,11 @@ static void handleNotification(const LightState& state) {
         case Flash::HARDWARE:
         case Flash::TIMED:
             /* Breathing */
-            set(WHITE_LED BREATH, 1);
+            set(RED_LED BREATH, 1);
             break;
         case Flash::NONE:
         default:
-            set(WHITE_LED BRIGHTNESS, whiteBrightness);
+            set(RED_LED BRIGHTNESS, whiteBrightness);
     }
 }
 
