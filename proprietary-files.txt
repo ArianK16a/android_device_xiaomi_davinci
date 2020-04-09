@@ -146,7 +146,7 @@ product/etc/permissions/qcrilhook.xml
 product/etc/permissions/telephonyservice.xml
 product/framework/embmslibrary.jar
 product/framework/qcrilhook.jar
-product/framework/qti-telephony-common.jar|c8db6c8e0465a4261f3f5bca4a8a090c222a41a6
+product/framework/qti-telephony-common.jar|180e59fb4d79e00612526c243b94711630940733
 product/framework/QtiTelephonyServicelibrary.jar
 -product/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 
