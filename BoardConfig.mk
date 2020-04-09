@@ -112,8 +112,7 @@ TARGET_COPY_OUT_VENDOR := vendor
 TARGET_BOARD_PLATFORM := sm6150
 
 # Power
-TARGET_POWER_SET_FEATURE_LIB := libpower_set_feature
-TARGET_TAP_TO_WAKE_EVENT_NODE := "/dev/input/event2"
+TARGET_POWER_SET_FEATURE_LIB := libpower_feature
 TARGET_USES_INTERACTION_BOOST := true
 
 # Properties

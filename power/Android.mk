@@ -21,7 +21,12 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := power-feature.c
 LOCAL_SHARED_LIBRARIES := liblog libcutils
 
-LOCAL_MODULE := libpower_set_feature
+LOCAL_HEADER_LIBRARIES := \
+    generated_kernel_headers \
+    libhardware_headers
+
+LOCAL_MODULE := libpower_feature
 LOCAL_MODULE_TAGS := optional
+LOCAL_VENDOR_MODULE := true
 
 include $(BUILD_STATIC_LIBRARY)

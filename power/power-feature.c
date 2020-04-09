@@ -14,9 +14,26 @@
  * limitations under the License.
  */
 
-#include <hardware/power.h>
+#include <fcntl.h>
+#include <unistd.h>
 
-void set_device_specific_feature(struct power_module *module __unused, feature_t feature, int state)
-{
-    //stub
+#include <hardware/power.h>
+#include <linux/input.h>
+
+#define LOG_TAG "PowerHAL feature"
+#include <log/log.h>
+
+void set_device_specific_feature(feature_t feature, int state) {
+    switch (feature) {
+        case POWER_FEATURE_DOUBLE_TAP_TO_WAKE: {
+            ALOGI("Hi there!");
+            int fd = open("/dev/input/event2", O_WRONLY);
+            struct input_event ev;
+            ev.type = EV_SYN;
+            ev.code = SYN_CONFIG;
+            ev.value = state ? 5 : 4;
+            write(fd, &ev, sizeof(ev));
+            close(fd);
+        }
+    }
 }
