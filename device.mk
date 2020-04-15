@@ -88,6 +88,10 @@ TARGET_SCREEN_WIDTH := 1080
 
 # Camera
 PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4-impl \
+    android.hardware.camera.provider@2.4-service_64
+
+PRODUCT_PACKAGES += \
     Snap
 
 PRODUCT_COPY_FILES += \
