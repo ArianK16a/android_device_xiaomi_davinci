@@ -122,6 +122,9 @@ PRODUCT_PACKAGES += \
     hwcomposer.sm6150 \
     memtrack.sm6150
 
+PRODUCT_PACKAGES += \
+    libtinyxml
+
 # Fingerprint
 PRODUCT_PACKAGES += \
     vendor.lineage.biometrics.fingerprint.inscreen@1.0-service.davinci
