@@ -424,6 +424,7 @@ vendor/lib64/vendor.xiaomi.hardware.fingerprintextension@1.0_vendor.so
 
 # DRM
 vendor/bin/qseecomd
+vendor/etc/gpfspath_oem_config.xml
 vendor/etc/init/qseecomd.rc
 vendor/lib64/libcpion.so
 vendor/lib64/libdrmfs.so
@@ -437,11 +438,11 @@ vendor/lib64/libQSEEComAPI.so
 vendor/lib64/librpmb.so
 vendor/lib64/libssd.so
 
-# DRM (widevine)
-vendor/bin/hw/android.hardware.drm@1.2-service.widevine
-vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
-vendor/lib64/mediadrm/libwvdrmengine.so
-vendor/lib/libwvhidl.so
+# DRM (widevine) - from Mi 9T Pro QKQ1.190825.002 V11.0.8.0.QFKCNXM
+vendor/bin/hw/android.hardware.drm@1.2-service.widevine|1aed116c6cd73ee0c89a5eec050afab5c64b9f87
+vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc|3522890cda1defadaaa79259f0fd28490f533c79
+vendor/lib64/libwvhidl.so|6418b2ace2f3c9758ac54edb85a4dea43accfa9a
+vendor/lib64/mediadrm/libwvdrmengine.so|4f78d73cfddc0b5bc9a5dcbb20470beaad0d3047
 
 # Graphics
 vendor/lib64/egl/eglSubDriverAndroid.so
