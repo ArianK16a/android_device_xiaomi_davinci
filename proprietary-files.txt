@@ -307,6 +307,9 @@ vendor/lib64/hw/vendor.xiaomi.hardware.motor@1.0-impl.so
 vendor/lib64/mi.motor.daemon.so
 vendor/lib64/vendor.xiaomi.hardware.motor@1.0.so
 
+# Charger
+vendor/bin/hvdcp_opti
+
 # CNE
 -vendor/app/CneApp/CneApp.apk
 -vendor/app/IWlanService/IWlanService.apk
