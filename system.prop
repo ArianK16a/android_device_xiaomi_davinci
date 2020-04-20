@@ -14,6 +14,9 @@ persist.vendor.dpm.feature=1
 persist.vendor.dpm.loglevel=0
 persist.vendor.dpm.nsrm.bkg.evt=3955
 
+# FM
+vendor.bluetooth.soc=cherokee
+
 # Graphics
 ro.surface_flinger.has_wide_color_display=true
 ro.surface_flinger.has_HDR_display=true
