@@ -754,3 +754,21 @@ vendor/bin/ssr_setup
 # Touchscreen firmware
 vendor/firmware/goodix_gt9886_limit_f10_first.tporder
 vendor/firmware/goodix_gt9886_limit_f10_second.tporder
+
+# WLAN
+vendor/bin/cnss-daemon
+vendor/lib64/libqsap_sdk.so
+vendor/lib/libqsap_sdk.so
+
+# WLAN (IPACM)
+vendor/etc/init/ipa_fws.rc
+vendor/firmware/ipa_fws.b00
+vendor/firmware/ipa_fws.b01
+vendor/firmware/ipa_fws.b02
+vendor/firmware/ipa_fws.b03
+vendor/firmware/ipa_fws.b04
+vendor/firmware/ipa_fws.elf
+vendor/firmware/ipa_fws.mdt
+
+# Xiaomi MAC
+vendor/bin/nv_mac
