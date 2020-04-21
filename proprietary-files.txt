@@ -331,6 +331,10 @@ media/audio/ui/popup_muqin_up.ogg
 media/audio/ui/popup_yingyan_down.ogg
 media/audio/ui/popup_yingyan_up.ogg
 
+# Camera (popup custom sound effects)
+media/audio/ui/popup_imperial_march_down.ogg|fcee239fad64840c09b381335f86048cacc54832
+media/audio/ui/popup_imperial_march_up.ogg|584f94b79ce7b13a5f29d618ac35f949773625c9
+
 # Charger
 vendor/bin/hvdcp_opti
 
