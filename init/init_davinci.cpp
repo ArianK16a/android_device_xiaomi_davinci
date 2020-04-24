@@ -107,6 +107,10 @@ void vendor_load_properties() {
         mod_device = "davinciin_in_global";
     }
 
+    // SafetyNet workaround
+    property_override("ro.boot.verifiedbootstate", "green");
+    fingerprint = "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys";
+
     set_ro_build_prop("fingerprint", fingerprint);
     set_ro_product_prop("device", device);
     set_ro_product_prop("model", model);
