@@ -305,6 +305,10 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 TARGET_SCREEN_DENSITY := 440
 
+# Recovery
+PRODUCT_PACKAGES += \
+    init.recovery.qcom.rc
+
 # RenderScript
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
