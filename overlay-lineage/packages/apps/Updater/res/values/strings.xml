@@ -16,7 +16,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- URL to be checked for OTA updates -->
-    <string name="updater_server_url" translatable="false">https://raw.githubusercontent.com/ArianK16a/OTA/lineage-17.1/davinci.json</string>
+    <string name="updater_server_url" translatable="false">https://raw.githubusercontent.com/ArianK16a/OTA/lineage-17.1/davinci_vanilla.json</string>
 
     <!-- URL to changelog -->
     <string name="menu_changelog_url" translatable="false">https://t.me/StarWarsFlowers</string>
