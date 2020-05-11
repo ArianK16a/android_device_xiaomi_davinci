@@ -175,14 +175,14 @@ public class PopupCameraService extends Service implements Handler.Callback {
             try {
                 if (cameraState.equals(Constants.OPEN_CAMERA_STATE)
                         && mMotor.getMotorStatus() == Constants.MOTOR_STATUS_TAKEBACK) {
-                    lightUp();
+                    lightUp(true);
                     playSoundEffect(Constants.OPEN_CAMERA_STATE);
                     mMotor.popupMotor(1);
                     mSensorManager.registerListener(mFreeFallListener, mFreeFallSensor,
                             SensorManager.SENSOR_DELAY_NORMAL);
                 } else if (cameraState.equals(Constants.CLOSE_CAMERA_STATE)
                         && mMotor.getMotorStatus() == Constants.MOTOR_STATUS_POPUP) {
-                    lightUp();
+                    lightUp(false);
                     playSoundEffect(Constants.CLOSE_CAMERA_STATE);
                     mMotor.takebackMotor(1);
                     mSensorManager.unregisterListener(mFreeFallListener, mFreeFallSensor);
@@ -208,21 +208,31 @@ public class PopupCameraService extends Service implements Handler.Callback {
         }
     }
 
-    private void lightUp() {
+    private void lightUp(boolean open) {
         if (mPopupCameraPreferences.isLedAllowed()) {
-            String ledBreathing = FileUtils.readOneLine(Constants.BREATH_LED_PATH);
-            String greenBrightness = FileUtils.readOneLine(Constants.GREEN_LED_PATH);
+            String ledBreathing = FileUtils.readOneLine(Constants.BREATH_GREEN_LED_PATH);
+            String ledBrightness = FileUtils.readOneLine(Constants.GREEN_LED_PATH);
 
-            FileUtils.writeLine(Constants.BREATH_LED_PATH, "0");
+            FileUtils.writeLine(Constants.BREATH_GREEN_LED_PATH, "0");
+            FileUtils.writeLine(Constants.BREATH_BLUE_LED_PATH, "0");
             FileUtils.writeLine(Constants.GREEN_LED_PATH, "255");
             FileUtils.writeLine(Constants.BLUE_LED_PATH, "255");
 
             mHandler.postDelayed(() -> {
-                FileUtils.writeLine(Constants.BLUE_LED_PATH, "0");
                 if (ledBreathing.equals("1")) {
-                    FileUtils.writeLine(Constants.BREATH_LED_PATH, "1");
+                    FileUtils.writeLine(Constants.BREATH_GREEN_LED_PATH, "1");
+                    if (open) {
+                        FileUtils.writeLine(Constants.BREATH_BLUE_LED_PATH, "1");
+                    } else {
+                        FileUtils.writeLine(Constants.BLUE_LED_PATH, "0");
+                    }
                 } else {
-                    FileUtils.writeLine(Constants.GREEN_LED_PATH, greenBrightness);
+                    FileUtils.writeLine(Constants.GREEN_LED_PATH, ledBrightness);
+                    if (open) {
+                        FileUtils.writeLine(Constants.BLUE_LED_PATH, ledBrightness);
+                    } else {
+                        FileUtils.writeLine(Constants.BLUE_LED_PATH, "0");
+                    }
                 }
             }, 1200);
         }
