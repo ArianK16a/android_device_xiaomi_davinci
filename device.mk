@@ -285,6 +285,10 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-lineage
 
+# Power
+PRODUCT_PACKAGES += \
+    android.hardware.power@1.3-service.davinci
+
 # Product characteristics
 PRODUCT_CHARACTERISTICS := nosdcard
 
