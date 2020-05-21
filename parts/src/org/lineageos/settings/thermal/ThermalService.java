@@ -47,6 +47,8 @@ public class ThermalService extends Service {
                 mHandler.postDelayed(mActivityRunnable, 500);
             } else {
                 mHandler.removeCallbacks(mActivityRunnable);
+                mPreviousApp = "";
+                mThermalUtils.setDefaultThermalProfile();
             }
         }
     };
