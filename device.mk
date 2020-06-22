@@ -54,6 +54,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libaudio-resampler \
+    libtinycompress \
     tinymix
 
 PRODUCT_COPY_FILES += \
