@@ -83,6 +83,30 @@ on boot
     chown system system /sys/class/thermal/thermal_message/sconfig
 
 on property:sys.boot_completed=1
+    write /dev/stune/top-app/schedtune.colocate 0
+    write /dev/stune/foreground/schedtune.prefer_idle 1
+    write /dev/stune/top-app/schedtune.boost 10
+    write /dev/stune/top-app/schedtune.prefer_idle 1
+
+    write /sys/module/cpu_boost/parameters/dynamic_stune_boost 15
+    write /sys/module/cpu_boost/parameters/dynamic_stune_boost_ms 1500
+
+    write /dev/stune/top-app/schedtune.sched_boost 15
+
+    write /dev/stune/foreground/schedtune.sched_boost_no_override 0
+    write /dev/stune/top-app/schedtune.sched_boost_no_override 0
+
+    write /proc/sys/kernel/sched_walt_rotate_big_tasks 0
+
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/up_rate_limit_us 500
+    write /sys/devices/system/cpu/cpufreq/policy6/schedutil/up_rate_limit_us 500
+
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us 20000
+    write /sys/devices/system/cpu/cpufreq/policy6/schedutil/down_rate_limit_us 20000
+
+    write /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq 0
+    write /sys/devices/system/cpu/cpufreq/policy6/schedutil/hispeed_freq 0
+
     # Setup runtime cpusets
     write /dev/cpuset/top-app/cpus 0-7
     write /dev/cpuset/foreground/cpus 0-5,7
@@ -104,6 +128,7 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu0/core_ctl/offline_delay_ms 100
     write /sys/devices/system/cpu/cpu0/core_ctl/is_big_cluster 0
     write /sys/devices/system/cpu/cpu0/core_ctl/task_thres 8
+    write /sys/devices/system/cpu/cpu0/core_ctl/enable 0
     write /sys/devices/system/cpu/cpu6/core_ctl/enable 0
 
     # Setting b.L scheduler parameters
@@ -136,7 +161,7 @@ on property:sys.boot_completed=1
     write /sys/devices/system/cpu/cpu6/cpufreq/schedutil/hispeed_load 85
 
     write /sys/module/cpu_boost/parameters/input_boost_freq "0:1324800"
-    write /sys/module/cpu_boost/parameters/input_boost_ms 120
+    write /sys/module/cpu_boost/parameters/input_boost_ms 500
 
     # Set allocstall_threshold to 0
     # Set swappiness to 100
