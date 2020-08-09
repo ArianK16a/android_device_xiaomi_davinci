@@ -38,4 +38,9 @@
     <!-- Pick-up to wake gesture-->
     <string name="wake_gesture_title">Wake up</string>
     <string name="wake_gesture_summary">Wake up the device instead of pulsing notifications</string>
+
+    <!-- FOD Sensor -->
+    <string name="fod_sensor_title">FOD sensor</string>
+    <string name="fod_detector_gesture_title">FOD detector sensor</string>
+    <string name="fod_detector_gesture_summary">!IN TESTING! Pulse the screeb when moving the device</string>
 </resources>
