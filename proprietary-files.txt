@@ -138,7 +138,6 @@ vendor/lib64/libmivendor_module_motor.so
 vendor/lib64/libmmcamera_faceproc2.so
 vendor/lib64/libmmcamera_faceproc.so
 vendor/lib64/libmpbase.so
-vendor/lib64/libnpu.so
 vendor/lib64/libremosaiclib.so
 vendor/lib64/libremosaic_daemon.so
 vendor/lib64/libSuperSensorCPU.so
