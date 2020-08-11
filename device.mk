@@ -109,6 +109,9 @@ PRODUCT_PACKAGES += \
     libdng_sdk.vendor
 
 PRODUCT_PACKAGES += \
+    libshim_camera
+
+PRODUCT_PACKAGES += \
     Snap
 
 PRODUCT_COPY_FILES += \
