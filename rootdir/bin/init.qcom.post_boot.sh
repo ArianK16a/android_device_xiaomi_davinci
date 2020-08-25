@@ -29,18 +29,6 @@
 
 target=`getprop ro.board.platform`
 
-function configure_memory_parameters() {
-    # Set allocstall_threshold to 0
-    # Set swappiness to 100
-    echo 0 > /sys/module/vmpressure/parameters/allocstall_threshold
-    echo 100 > /proc/sys/vm/swappiness
-
-    # Set Zram disk size=1GB for >=2GB Non-Go targets.
-    echo 2684350464 > /sys/block/zram0/disksize
-    mkswap /dev/block/zram0
-    swapon /dev/block/zram0 -p 32758
-}
-
 case "$target" in
     "sm6150")
 
@@ -119,9 +107,6 @@ case "$target" in
         done
 
     done
-
-    # Set Memory parameters
-    configure_memory_parameters
     ;;
 esac
 
