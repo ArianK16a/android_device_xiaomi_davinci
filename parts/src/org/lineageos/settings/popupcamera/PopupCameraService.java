@@ -210,28 +210,28 @@ public class PopupCameraService extends Service implements Handler.Callback {
 
     private void lightUp(boolean open) {
         if (mPopupCameraPreferences.isLedAllowed()) {
-            String ledBreathing = FileUtils.readOneLine(Constants.BREATH_GREEN_LED_PATH);
-            String ledBrightness = FileUtils.readOneLine(Constants.GREEN_LED_PATH);
+            String ledBreathing = FileUtils.readOneLine(Constants.BREATH_RIGHT_LED_PATH);
+            String ledBrightness = FileUtils.readOneLine(Constants.RIGHT_LED_PATH);
 
-            FileUtils.writeLine(Constants.BREATH_GREEN_LED_PATH, "0");
-            FileUtils.writeLine(Constants.BREATH_BLUE_LED_PATH, "0");
-            FileUtils.writeLine(Constants.GREEN_LED_PATH, "255");
-            FileUtils.writeLine(Constants.BLUE_LED_PATH, "255");
+            FileUtils.writeLine(Constants.BREATH_RIGHT_LED_PATH, "0");
+            FileUtils.writeLine(Constants.BREATH_LEFT_LED_PATH, "0");
+            FileUtils.writeLine(Constants.RIGHT_LED_PATH, "255");
+            FileUtils.writeLine(Constants.LEFT_LED_PATH, "255");
 
             mHandler.postDelayed(() -> {
                 if (ledBreathing.equals("1")) {
-                    FileUtils.writeLine(Constants.BREATH_GREEN_LED_PATH, "1");
+                    FileUtils.writeLine(Constants.BREATH_RIGHT_LED_PATH, "1");
                     if (open) {
-                        FileUtils.writeLine(Constants.BREATH_BLUE_LED_PATH, "1");
+                        FileUtils.writeLine(Constants.BREATH_LEFT_LED_PATH, "1");
                     } else {
-                        FileUtils.writeLine(Constants.BLUE_LED_PATH, "0");
+                        FileUtils.writeLine(Constants.LEFT_LED_PATH, "0");
                     }
                 } else {
-                    FileUtils.writeLine(Constants.GREEN_LED_PATH, ledBrightness);
+                    FileUtils.writeLine(Constants.RIGHT_LED_PATH, ledBrightness);
                     if (open) {
-                        FileUtils.writeLine(Constants.BLUE_LED_PATH, ledBrightness);
+                        FileUtils.writeLine(Constants.LEFT_LED_PATH, ledBrightness);
                     } else {
-                        FileUtils.writeLine(Constants.BLUE_LED_PATH, "0");
+                        FileUtils.writeLine(Constants.LEFT_LED_PATH, "0");
                     }
                 }
             }, 1200);
