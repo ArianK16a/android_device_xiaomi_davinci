@@ -15,6 +15,7 @@
 
 cc_binary {
     name: "android.hardware.light@2.0-service.davinci",
+    vintf_fragments: ["android.hardware.light@2.0-service.davinci.xml"],
     init_rc: ["android.hardware.light@2.0-service.davinci.rc"],
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
