@@ -952,8 +952,6 @@ vendor/lib/vendor.qti.hardware.wifidisplaysessionl@1.0-halimpl.so
 
 # WLAN
 vendor/bin/cnss-daemon
-vendor/lib64/libqsap_sdk.so
-vendor/lib/libqsap_sdk.so
 
 # Xiaomi MAC
 vendor/bin/nv_mac
