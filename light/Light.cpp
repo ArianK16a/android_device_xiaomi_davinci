@@ -24,7 +24,6 @@
 
 #define PANEL_LED           "/sys/class/backlight/panel0-backlight/"
 #define NOTIFICATION_LED    "/sys/class/leds/left/"
-#define NOTIFICATION_LED2   "/sys/class/leds/right/"
 
 #define BREATH              "breath"
 #define BRIGHTNESS          "brightness"
@@ -109,9 +108,6 @@ static void handleNotification(const LightState& state) {
     /* Disable breathing or blinking */
     set(NOTIFICATION_LED BREATH, 0);
     set(NOTIFICATION_LED BRIGHTNESS, 0);
-    set(NOTIFICATION_LED2 BREATH, 0);
-    set(NOTIFICATION_LED2 BRIGHTNESS, 0);
-
 
     if (!notificationBrightness) {
         return;
