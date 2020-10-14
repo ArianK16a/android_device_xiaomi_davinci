@@ -81,9 +81,6 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         PreferenceCategory proximitySensorCategory = (PreferenceCategory) getPreferenceScreen().
                 findPreference(DozeUtils.CATEG_PROX_SENSOR);
 
-        SwitchPreference raiseToWakeGesture = (SwitchPreference) getPreferenceScreen().
-                findPreference(DozeUtils.GESTURE_RAISE_TO_WAKE);
-
         mPickUpPreference = (SwitchPreference) findPreference(DozeUtils.GESTURE_PICK_UP_KEY);
         mPickUpPreference.setEnabled(dozeEnabled);
         mPickUpPreference.setOnPreferenceChangeListener(this);
@@ -112,7 +109,6 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
             mPickUpPreference.setDependency(DozeUtils.ALWAYS_ON_DISPLAY);
             pickupSensorCategory.setDependency(DozeUtils.ALWAYS_ON_DISPLAY);
             proximitySensorCategory.setDependency(DozeUtils.ALWAYS_ON_DISPLAY);
-            raiseToWakeGesture.setDependency(DozeUtils.ALWAYS_ON_DISPLAY);
         }
     }
 
