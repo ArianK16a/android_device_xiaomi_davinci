@@ -27,13 +27,13 @@ import org.lineageos.settings.popupcamera.PopupCameraUtils;
 import org.lineageos.settings.thermal.ThermalUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
-
     private static final boolean DEBUG = false;
     private static final String TAG = "XiaomiParts";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        if (DEBUG) Log.d(TAG, "Received boot completed intent");
+        if (DEBUG)
+            Log.d(TAG, "Received boot completed intent");
         DozeUtils.checkDozeService(context);
         PopupCameraUtils.startService(context);
         ThermalUtils.startService(context);

@@ -30,7 +30,6 @@ import android.util.Log;
 import java.util.List;
 
 public class ThermalService extends Service {
-
     private static final String TAG = "ThermalService";
     private static final boolean DEBUG = false;
 
@@ -54,7 +53,8 @@ public class ThermalService extends Service {
 
     @Override
     public void onCreate() {
-        if (DEBUG) Log.d(TAG, "Creating service");
+        if (DEBUG)
+            Log.d(TAG, "Creating service");
         mThermalUtils = new ThermalUtils(this);
         mActivityRunnable = new ActivityRunnable(this);
         mHandler.postDelayed(mActivityRunnable, 500);
@@ -64,7 +64,8 @@ public class ThermalService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (DEBUG) Log.d(TAG, "Starting service");
+        if (DEBUG)
+            Log.d(TAG, "Starting service");
         return START_STICKY;
     }
 
@@ -83,9 +84,7 @@ public class ThermalService extends Service {
     private class ActivityRunnable implements Runnable {
         private Context context;
 
-        private ActivityRunnable(Context context) {
-            this.context = context;
-        }
+        private ActivityRunnable(Context context) { this.context = context; }
 
         @Override
         public void run() {
