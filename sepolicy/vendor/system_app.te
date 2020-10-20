@@ -1,6 +1,8 @@
 allow system_app hal_motor_hwservice_xiaomi:hwservice_manager find;
+allow system_app hal_touchfeature_hwservice_xiaomi:hwservice_manager find;
 
 binder_call(system_app, hal_motor)
+binder_call(system_app, hal_touchfeature)
 
 allow system_app { motor_device sysfs_graphics sysfs_leds }:dir search;
 allow system_app { cgroup sysfs_graphics sysfs_thermal }:file rw_file_perms;
