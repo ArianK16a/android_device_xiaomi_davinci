@@ -145,6 +145,9 @@ PRODUCT_PACKAGES += \
     hwcomposer.sm6150 \
     memtrack.sm6150
 
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.display.mapper@2.0.vendor
+
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml
 
@@ -233,6 +236,7 @@ PRODUCT_PACKAGES += \
 
 # Media
 PRODUCT_PACKAGES += \
+    libavservices_minijail.vendor \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \

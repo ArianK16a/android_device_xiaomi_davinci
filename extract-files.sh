@@ -61,12 +61,6 @@ fi
 
 function blob_fixup() {
     case "${1}" in
-    lib64/libwfdnative.so)
-        patchelf --remove-needed "android.hidl.base@1.0.so" "${2}"
-        ;;
-    lib64/libfm-hci.so)
-        patchelf --remove-needed "android.hidl.base@1.0.so" "${2}"
-        ;;
     vendor/lib64/hw/camera.qcom.so)
         patchelf --remove-needed "libMegviiFacepp-0.5.2.so" "${2}"
         patchelf --remove-needed "libmegface.so" "${2}"
