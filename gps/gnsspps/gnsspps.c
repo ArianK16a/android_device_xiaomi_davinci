@@ -54,6 +54,7 @@ static struct timespec prevDrsyncKernelTs = {0,0};
 
 //flag to stop fetching timestamp
 static int isActive = 0;
+static pthread_t threadId;
 static pps_handle handle;
 
 static pthread_mutex_t ts_lock;
@@ -324,7 +325,6 @@ void *thread_handle(void *input)
 int initPPS(char *devname)
 {
     int ret,pid;
-    pthread_t thread;
     isActive = 1;
 
     ret = check_device(devname, &handle);
@@ -334,12 +334,13 @@ int initPPS(char *devname)
         return 0;
     }
     UTIL_READ_CONF(LOC_PATH_GPS_CONF, gps_conf_param_table);
-    pthread_mutex_init(&ts_lock,NULL);
+    pthread_mutex_init(&ts_lock, NULL);
 
-    pid = pthread_create(&thread,NULL,&thread_handle,NULL);
+    pid = pthread_create(&threadId, NULL, &thread_handle, NULL);
     if(pid != 0)
     {
         LOC_LOGV("%s:%d Could not create thread in InitPPS", __func__, __LINE__);
+        isActive = 0;
         return 0;
     }
     return 1;
@@ -349,8 +350,14 @@ int initPPS(char *devname)
 void deInitPPS()
 {
     pthread_mutex_lock(&ts_lock);
+    if (0 == isActive) {
+        LOC_LOGV("%s:%d deInitPPS called before initPPS", __func__, __LINE__);
+        return;
+    }
     isActive = 0;
     pthread_mutex_unlock(&ts_lock);
+
+    pthread_join(threadId, NULL);
 
     pthread_mutex_destroy(&ts_lock);
     pps_destroy(handle);
@@ -366,16 +373,20 @@ void deInitPPS()
 int getPPS(struct timespec *fineKernelTs ,struct timespec *currentTs,
            struct timespec *fineUserTs)
 {
-    int ret;
+    int ret = 0;
 
     pthread_mutex_lock(&ts_lock);
-    fineKernelTs->tv_sec = drsyncKernelTs.tv_sec;
-    fineKernelTs->tv_nsec = drsyncKernelTs.tv_nsec;
+    if (0 != isActive) {
+        fineKernelTs->tv_sec = drsyncKernelTs.tv_sec;
+        fineKernelTs->tv_nsec = drsyncKernelTs.tv_nsec;
 
-    fineUserTs->tv_sec = drsyncUserTs.tv_sec;
-    fineUserTs->tv_nsec = drsyncUserTs.tv_nsec;
+        fineUserTs->tv_sec = drsyncUserTs.tv_sec;
+        fineUserTs->tv_nsec = drsyncUserTs.tv_nsec;
 
-    ret = clock_gettime(CLOCK_BOOTTIME,currentTs);
+        ret = clock_gettime(CLOCK_BOOTTIME,currentTs);
+    } else {
+       LOC_LOGV("%s:%d No active thread to read PPS - call initPPS first", __func__, __LINE__);
+    }
     pthread_mutex_unlock(&ts_lock);
     if(ret != 0)
     {
