@@ -61,6 +61,9 @@ fi
 
 function blob_fixup() {
     case "${1}" in
+    vendor/lib64/vendor.xiaomi.hardware.citsensorservice@1.0.so)
+        patchelf --remove-needed "android.hidl.base@1.0.so" "${2}"
+        ;;
     vendor/lib64/hw/camera.qcom.so)
         patchelf --remove-needed "libMegviiFacepp-0.5.2.so" "${2}"
         patchelf --remove-needed "libmegface.so" "${2}"
