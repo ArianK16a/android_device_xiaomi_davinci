@@ -517,27 +517,14 @@ vendor/lib64/vendor.qti.hardware.cacert@1.0.so
 # IMS
 lib64/libdiag_system.so
 -product/app/uceShimService/uceShimService.apk
-product/lib64/com.qualcomm.qti.imscmservice@1.0.so
-product/lib64/com.qualcomm.qti.imscmservice@2.0.so
-product/lib64/com.qualcomm.qti.imscmservice@2.1.so
-product/lib64/com.qualcomm.qti.imscmservice@2.2.so
-product/lib64/com.qualcomm.qti.uceservice@2.0.so
-product/lib64/com.qualcomm.qti.uceservice@2.1.so
 product/lib64/libimscamera_jni.so
 product/lib64/libimsmedia_jni.so
 product/lib64/lib-imsvideocodec.so
 product/lib64/lib-imsvt.so
 product/lib64/lib-imsvtextutils.so
 product/lib64/lib-imsvtutils.so
-product/lib64/vendor.qti.ims.callinfo@1.0.so
-product/lib64/vendor.qti.ims.rcsconfig@1.0.so
 product/lib64/vendor.qti.imsrtpservice@2.0.so
 product/lib64/vendor.qti.imsrtpservice@2.1.so
-product/lib64/vendor.qti.hardware.radio.ims@1.0.so
-product/lib64/vendor.qti.hardware.radio.ims@1.1.so
-product/lib64/vendor.qti.hardware.radio.ims@1.2.so
-product/lib64/vendor.qti.hardware.radio.ims@1.3.so
-product/lib64/vendor.qti.hardware.radio.ims@1.4.so
 -product/priv-app/ims/ims.apk
 vendor/bin/imsdatadaemon
 vendor/bin/imsqmidaemon
