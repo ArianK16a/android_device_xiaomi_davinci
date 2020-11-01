@@ -291,7 +291,7 @@ PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service-qti
+    android.hardware.power-service
 
 # Product characteristics
 PRODUCT_CHARACTERISTICS := nosdcard
