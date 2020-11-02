@@ -292,6 +292,7 @@ PRODUCT_CHARACTERISTICS := nosdcard
 
 # QTI
 TARGET_COMMON_QTI_COMPONENTS := \
+    av \
     wfd
 
 PRODUCT_COPY_FILES += \
@@ -310,9 +311,6 @@ PRODUCT_PACKAGES += \
     libril \
     librilutils \
     librmnetctl
-
-PRODUCT_PACKAGES += \
-    libavservices_minijail.vendor
 
 # Recovery
 PRODUCT_PACKAGES += \
