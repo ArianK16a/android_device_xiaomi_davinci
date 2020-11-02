@@ -278,6 +278,7 @@ TARGET_COMMON_QTI_COMPONENTS := \
     bt \
     display \
     gps \
+    perf \
     wfd
 
 PRODUCT_COPY_FILES += \
