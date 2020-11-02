@@ -126,4 +126,6 @@ $(WIFI_FIRMWARE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(WIFI_FIRMWARE_SYMLINKS)
 
+LIBION_HEADER_PATH_WRAPPER := vendor/qcom/opensource/core-utils/build/libion_header_paths/libion_path.mk
+
 endif
