@@ -276,6 +276,8 @@ PRODUCT_CHARACTERISTICS := nosdcard
 TARGET_COMMON_QTI_COMPONENTS := \
     av \
     bt \
+    display \
+    gps \
     wfd
 
 PRODUCT_COPY_FILES += \
