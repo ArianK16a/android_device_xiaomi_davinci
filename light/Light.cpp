@@ -22,7 +22,6 @@
 
 #include <fstream>
 
-#define PANEL_LED           "/sys/class/backlight/panel0-backlight/"
 #define NOTIFICATION_LED    "/sys/class/leds/left/"
 
 #define BREATH              "breath"
@@ -97,11 +96,6 @@ static inline uint32_t getScaledBrightness(const LightState& state, uint32_t max
     return scaleBrightness(getBrightness(state), maxBrightness);
 }
 
-static void handleBacklight(const LightState& state) {
-    uint32_t brightness = getScaledBrightness(state, getMaxBrightness(PANEL_LED MAX_BRIGHTNESS));
-    set(PANEL_LED BRIGHTNESS, brightness);
-}
-
 static void handleNotification(const LightState& state) {
     uint32_t notificationBrightness = getScaledBrightness(state, getMaxBrightness(NOTIFICATION_LED MAX_BRIGHTNESS));
 
@@ -145,7 +139,6 @@ static std::vector<LightBackend> backends = {
     { Type::ATTENTION, handleNotification },
     { Type::NOTIFICATIONS, handleNotification },
     { Type::BATTERY, handleNotification },
-    { Type::BACKLIGHT, handleBacklight },
 };
 
 static LightStateHandler findHandler(Type type) {
