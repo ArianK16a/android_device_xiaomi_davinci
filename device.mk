@@ -98,8 +98,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml
 
 PRODUCT_SOONG_NAMESPACES += \
-    vendor/qcom/opensource/commonsys/packages/apps/Bluetooth \
-    vendor/qcom/opensource/commonsys/system/bt/conf
+    vendor/qcom/opensource/commonsys/packages/apps/Bluetooth
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2340
