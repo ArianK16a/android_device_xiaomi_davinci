@@ -33,6 +33,7 @@ PRODUCT_PACKAGES += \
 
 # ANT+
 PRODUCT_PACKAGES += \
+    AntHalService-Soong \
     com.dsi.ant@1.0.vendor
 
 # Audio
@@ -89,12 +90,16 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
 
 # Bluetooth
-include vendor/qcom/opensource/commonsys-intf/bluetooth/bt-commonsys-intf-board.mk
-$(call inherit-product, vendor/qcom/opensource/commonsys-intf/bluetooth/bt-system-opensource-product.mk)
+PRODUCT_PACKAGES += \
+    BluetoothQti
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml
+
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/qcom/opensource/commonsys/packages/apps/Bluetooth \
+    vendor/qcom/opensource/commonsys/system/bt/conf
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2340
@@ -157,6 +162,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml \
     vendor/lineage/config/permissions/vendor.lineage.biometrics.fingerprint.inscreen.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/vendor.lineage.biometrics.fingerprint.inscreen.xml
+
+# FM
+PRODUCT_PACKAGES += \
+    FM2 \
+    qcom.fmradio
 
 # Fstab
 PRODUCT_COPY_FILES += \
@@ -303,7 +313,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_CHARACTERISTICS := nosdcard
 
 # QTI
-TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
 PRODUCT_PACKAGES += \
     libqti_vndfwk_detect.vendor
 
