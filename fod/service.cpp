@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "vendor.pa.biometrics.fingerprint.inscreen@1.0-service.davinci"
+#define LOG_TAG "vendor.aospa.biometrics.fingerprint.inscreen@1.0-service.davinci"
 
 #include <android-base/logging.h>
 #include <hidl/HidlTransportSupport.h>
@@ -24,8 +24,8 @@
 using android::hardware::configureRpcThreadpool;
 using android::hardware::joinRpcThreadpool;
 
-using vendor::pa::biometrics::fingerprint::inscreen::V1_0::IFingerprintInscreen;
-using vendor::pa::biometrics::fingerprint::inscreen::V1_0::implementation::FingerprintInscreen;
+using vendor::aospa::biometrics::fingerprint::inscreen::V1_0::IFingerprintInscreen;
+using vendor::aospa::biometrics::fingerprint::inscreen::V1_0::implementation::FingerprintInscreen;
 
 using android::OK;
 using android::status_t;
