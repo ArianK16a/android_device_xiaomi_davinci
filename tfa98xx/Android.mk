@@ -28,12 +28,14 @@ LOCAL_SHARED_LIBRARIES := \
 
 LOCAL_C_INCLUDES += \
     $(call include-path-for,audio-route) \
-    $(call project-path-for,qcom-audio)/hal \
-    $(call project-path-for,qcom-audio)/hal/msm8974 \
-    $(call project-path-for,qcom-audio)/hal/audio_extn \
+    external/tinycompress/include \
+    kernel/xiaomi/sm6150/techpack/audio/include/uapi \
+    vendor/qcom/opensource/audio-hal/primary-hal/hal \
+    vendor/qcom/opensource/audio-hal/primary-hal/hal/msm8974 \
+    vendor/qcom/opensource/audio-hal/primary-hal/hal/audio_extn \
 
 LOCAL_HEADER_LIBRARIES := \
-    generated_kernel_headers \
+    qti_kernel_headers \
     libhardware_headers
 
 LOCAL_SRC_FILES := tfa98xx_feedback.c
